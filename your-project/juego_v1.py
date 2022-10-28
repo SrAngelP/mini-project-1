@@ -1,6 +1,9 @@
 import random
 import pandas as pd
-from PIL import Image
+import time
+from IPython.display import IFrame, HTML, Image
+
+
 class Bulbasaur(object):
     
     #https://pokemondb.net/pokedex/bulbasaur
@@ -11,12 +14,17 @@ class Bulbasaur(object):
         
         self.name = 'Bulbasaur';
         self.hp = random.randrange(200, 295, 1) ;
+        self.hp_inicial = self.hp
         self.attack = random.randrange(92, 217, 1);
         self.defense =  random.randrange(92, 217, 1);
         self.sp_attack = random.randrange(121, 252, 1);
         self.sp_defense = random.randrange(121, 252, 1);
         self.speed = random.randrange(85, 208, 1);
-        self.image = Image.open("bulbasaur.jpg");
+        self.image = Image("bulbasaur.jpg", width=50, height=50);
+        self.im_battle = Image('bulbasaur.gif', width=50, height=50);
+        self.im_battle_back = Image('bulbasaur_back.gif', width=50, height=50);
+        
+        
         
     def cambiar_nombre(self, nombre):
         self.name =  nombre;
@@ -76,12 +84,15 @@ class Charmander(object):
         
         self.name = 'Charmander';
         self.hp = random.randrange(188, 283, 1) ;
+        self.hp_inicial = self.hp
         self.attack = random.randrange(98, 224, 1);
         self.defense =  random.randrange(81, 204, 1);
         self.sp_attack = random.randrange(112, 242, 1);
         self.sp_defense = random.randrange(94, 219, 1);
         self.speed = random.randrange(121, 252, 1);
-        self.image = Image.open("charmander.jpg");
+        self.image = Image("charmander.jpg", width=50, height=50);
+        self.im_battle = Image('charmander.gif', width=50, height=50);
+        self.im_battle_back = Image('charmander_back.gif', width=50, height=50);
 
 
     def cambiar_nombre(self, nombre):
@@ -140,12 +151,15 @@ class Squirtle(object):
 
         self.name = 'Squirtle';
         self.hp = random.randrange(198, 293, 1) ;
+        self.hp_inicial = self.hp
         self.attack = random.randrange(90, 215, 1);
         self.defense =  random.randrange(121, 252, 1);
         self.sp_attack = random.randrange(94, 219, 1);
         self.sp_defense = random.randrange(119, 250, 1);
         self.speed = random.randrange(81, 204, 1);
-        self.image = Image.open("squirtle.jpg");
+        self.image = Image("squirtle.jpg", width=50, height=50);
+        self.im_battle = Image('squirtle.gif', width=50, height=50);
+        self.im_battle_back = Image('squirtle_back.gif', width=50, height=50);
         
     def cambiar_nombre(self, nombre):
         self.name =  nombre;
@@ -213,7 +227,8 @@ def select_pokemon():
     name_datos = ['Nombre', 'Ataque', 'Defensa', 'Ataque Especial', 'Defensa Especial', 'Velocidad'];
     
     
-    display(poke.image.resize((200,200)))
+    
+    display(poke.im_battle)
     print(pd.DataFrame(datos, index = name_datos, columns = ['Datos']));
     
     
@@ -233,14 +248,12 @@ def damage(ataque_pokemon1, power, defensa_pokemon2):
 
 
 
-def batalla_pokemon_prueba(poke1, poke2 = select_pk(), cpu = False):
-    return poke1, poke2;
-
     
 
-def batalla_pokemon(poke1, se_inv, poke2 = select_pk(), first_time=True, cpu = False):
+def batalla_pokemon(poke1, poke2, se_inv,  first_time=True, cpu = False):
     
-
+   
+    
 
     if first_time == True:
         
@@ -297,29 +310,11 @@ def batalla_pokemon(poke1, se_inv, poke2 = select_pk(), first_time=True, cpu = F
             cpu3 = False;
             cpu1 = False;
             cpu2 = False;
-
-        
-    
-        
-        ### Evaluación de si luchas contra la compu:
-        
-
-            
-            
-
-            
-        
-            
-        
-    
-        
-    
-
-        
-        
-        
+   
 
     
+    display(pokemon1.im_battle_back);
+    health_bar(pokemon1);
     
     
     damage1 = ataque_pk(pokemon1, pokemon2, cpu1);
@@ -329,15 +324,21 @@ def batalla_pokemon(poke1, se_inv, poke2 = select_pk(), first_time=True, cpu = F
     print('');
     print(pokemon2.receive_damage(damage1));
     print('');
-    print(f"{pokemon2.name} tiene {pokemon2.hp} puntos de vida");
+    display(pokemon2.im_battle);
+    health_bar(pokemon2);
     print('');
     print('');
+    time.sleep(2.5)
     
     if pokemon2.hp<=0:
         print(f"¡{pokemon1.name} ha ganado la batalla!")
         return pokemon1.hp;
     
     elif pokemon2.hp>0:
+        
+        
+        display(pokemon2.im_battle_back);
+        health_bar(pokemon2);
                 
 
         damage2 = ataque_pk(pokemon2, pokemon1, cpu2);
@@ -347,17 +348,32 @@ def batalla_pokemon(poke1, se_inv, poke2 = select_pk(), first_time=True, cpu = F
         print('');
         print(pokemon1.receive_damage(damage2));
         print('');
-        print(f"{pokemon1.name} tiene {pokemon1.hp} puntos de vida");
+        display(pokemon1.im_battle);
+        health_bar(pokemon1);
         print('');
         print('');
+        
+        time.sleep(2.5)
         
         if pokemon1.hp<=0:
             print(f"¡{pokemon2.name} ha ganado la batalla!");
             return pokemon2.hp;
         
         elif pokemon1.hp>0 and pokemon2.hp>0:
+
+            b = 1;
+            while b ==1:
+                
+                print('');
+                print('');
+                sig = input('¿Siguiente ronda? y/n ')
+                if sig.lower() == 'y':
+                    b = 0;
+                else:
+                    b = 1;
+            
             print('¡La lucha sigue, siguiente ataque!');
-            return batalla_pokemon(pokemon1, se_inv, pokemon2, first_time = False, cpu = cpu3);    
+            return batalla_pokemon(pokemon1, pokemon2, se_inv, first_time = False, cpu = cpu3);    
     
 
 
@@ -375,7 +391,46 @@ def ataque_pk(pokemon1, pokemon2, cpu_a):
     
     return damage1;
 
+
+def health_bar(pokemon):
     
+    hp = pokemon.hp;
+    maxhp = pokemon.hp_inicial;
+    barritas = 20;
+    
+    
+    if pokemon.hp> 0:
+        
+        hp_barr = int(maxhp/barritas)            #para saber aprox cuanto vale la barrita
+        hp_barritas = int(hp/hp_barr)              
+        relleno = barritas - hp_barritas       
+
+        hp_b = '-' * hp_barritas                  
+        rellenado = ' ' * relleno             
+        porcentaje = str(int((hp*100)/maxhp)) + "%"     
+
+        print("|" + hp_b + rellenado + "|")  
+        print("         " + porcentaje)
+        
+        
+        
+    elif pokemon.hp<=0:
+        
+        porcentaje = '0' + '%'
+        rellenado = ' ' * barritas
+        print("|" + rellenado + "|")  
+        print("         " + porcentaje)
+        
+        
+        
+    return;
+    
+    
+    
+    
+
+
+
     
 def user_or_pc():
     u_o_p = input('¿Cuantós jugadores serán? ¿1 o 2?: ')
@@ -393,38 +448,89 @@ def user_or_pc():
     
 def juego():
     
-    u_o_p = user_or_pc();
-    
-    if u_o_p =='1':
-        
-        
-        print('Tu pokemon: ')
-        pk1 = select_pokemon();
-        print('');
-        print('');
-        print('¡Ahora, a pelear!');
-        
-        batalla_pokemon(pk1, False, cpu = True);
-        
-        
-        
-        
+    c = 1;
+    while c == 1:
         
     
-    elif u_o_p == '2':
+        u_o_p = user_or_pc();
+
+        if u_o_p =='1':
+
+            pk2 =  select_pk();
+            print('Tu pokemon: ')
+            pk1 = select_pokemon();
+
+            a = 1;
+            while a ==1:
+
+
+                print('');
+                print('');
+                bata = input('¿Listo para la batalla? y/n ')
+                if bata.lower() == 'y':
+                    a = 0;
+                else:
+                    a = 1;
+
+            time.sleep(0.5)
+            print('Cargando la batalla.........')
+            time.sleep(1.0)
+
+            print('¡Ahora, a pelear!');
+
+            batalla_pokemon(pk1, pk2, False, cpu = True);
+
+
+
+
+
+
+        elif u_o_p == '2':
+
+
+
+            print('El primer pokemon: ')
+            pk1 = select_pokemon();
+
+            print('')
+            print('El segundo pokemon: ')
+            pk2 = select_pokemon();
+
+            while a ==1:
+
+
+                print('');
+                print('');
+                bata = input('¿Listo para la batalla? y/n ')
+                if bata.lower() == 'y':
+                    a = 0;
+                else:
+                    a = 1;
+
+            time.sleep(0.5)
+            print('Cargando la batalla.........')
+            time.sleep(1.0)
+
+            print('¡Ahora, a pelear!');
+
+            batalla_pokemon(pk1, pk2, False,);
+
+
+
+        rep = input('¿Volver a jugar? y/n ')
         
-        print('El primer pokemon: ')
-        pk1 = select_pokemon();
-        
-        print('')
-        print('El segundo pokemon: ')
-        pk2 = select_pokemon();
-        
-        batalla_pokemon(pk1, False, pk2);
-    
-    
-        
-        
+        if rep.lower() == 'y':
+            print(' ');
+            c = 1;
+            
+        elif rep.lower() == 'n':
+            print('¡Hasta luego!');
+            c = 0;
+            
+        else:
+            print('Comando equivocado. El programa se autodestruirá.');
+            c = 0;
+            
         
         
         
