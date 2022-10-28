@@ -31,9 +31,7 @@ Los ataques fueron elegidos con la idea de que cada pokemon tenga un ataque *fí
 
 El daño que produce cada ataque está calculado según una forma simplificada de la fórmula del daño en la primera generación. La ecuación original es la siguiente:
 
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.jpg" width="1000" height="1000" class="under" />
-<img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4445736b8e1e8be597cf7901e4ad0be60b54d1ab" alt="1000" width="1000" class="over" />
+**Damage = ((((2 * Level / 5 + 2) * AttackStat * AttackPower / DefenseStat) / 50) + 2) * STAB * Weakness/Resistance * RandomNumber / 100**
 
 De la ecuación anterior no se tomaron em cuenta los *boosters* de *type 1*, *typ2*, *STAB* y *random* así que se igualaron a uno, y el nivel se asumió como el 100 (el máximo en la primera generación). Esto se calculo teniendo en cuenta que *A* y *D* son el ataque y defensa de los correspondientes pokemons y *power* es el poder de cada ataque individual.
 
