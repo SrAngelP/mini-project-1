@@ -3,29 +3,29 @@
 # Pokemon Battle Simulator!
 
 ## Content
-- [Descripción del juego](#Descripción-del-juego)
-- [Mecánica del juego](#Mecánica-del-juego)
-- [Estadísticas](#Estadísticas)
-- [Ataques](#Ataques)
-- [Mejoras futuras](#Mejoras-futuras)
+- [Game Description](#Game-Description)
+- [Game Mechanics](#Game-Mechanics)
+- [Stats](#Stats)
+- [Attacks](#Attacks)
+- [Future Improvements](#Future-Improvements)
 - [Links](#Links)
 
-## Descripción del juego
+## Game Description
 
 El juego fusiona dos formas de juego. La clásica rutina de batalla de las versionas para *gameboy*/*gameboy advance*/*etc* y la aleatoriedad de los juegos *gatcha*. En concreto el usuario puede elegir si jugar solo (contra la maquina) o contra un compañero (*PvP*). Se efectua la batalla y el ganador aparece en la pantalla.
 
 
 
-## Mecánica del juego
+## Game Mechanics
 
 Entrando en el juego el usuario selecciona el tipo de modalidad, posteriormente se le asignará un pokemon aleatorio de los que contiene el juego (por el momento 3) con estadísticas aleatorias según el rango máximo que puede alcanzar, se le enseña al usuario dichas estadísticas que puede analizar, ya que estas serán importantes después. Al iniciar la batalla el pokemon con la velocidad más elevada es el que ataca primero. Durante la lucha el usuario tiene la oportunidad de elegir uno de los dos ataques predeterminados. Ambos luchadores siguen atacando hasta que los *Hit Point* (HP) del oponente queden en 0 lo que dará por terminada la batalla y definirá al ganador.
 
 
-### Estadísticas
+### Stats
 
 Las estadísticas (*Stats*) de los pokemon están basados en las oficiales según los juegos. **NO SON LAS ESTADÍSTICAS BASE (***BASE STATS***)** . Las estadísticas son las tomadas del ragno que puede tener un pokemon cuando se encuentra en el nivel 100, se decidió de esta manera para que no hubiera una diferencia tan abismal entre los competidores.
 
-### Ataques
+### Attacks
 
 Los ataques fueron elegidos con la idea de que cada pokemon tenga un ataque *físico* y uno tipo *especial* por lo que el usuario tendrá que poner atención cuál ataque le conviene más según las características de su pokemon (*ataque especial* y *ataque*). De la misma manera deberá estar atento a qué ataques le hacen más daño según sus niveles de defensa.
 
@@ -38,7 +38,7 @@ El daño que produce cada ataque está calculado según una forma simplificada d
 De la ecuación anterior no se tomaron em cuenta los *boosters* de *type 1*, *typ2*, *STAB* y *random* así que se igualaron a uno, y el nivel se asumió como el 100 (el máximo en la primera generación). Esto se calculo teniendo en cuenta que *A* y *D* son el ataque y defensa de los correspondientes pokemons y *power* es el poder de cada ataque individual.
 
 
-## Mejoras futuras
+## Future Improvements
 
 Durante la programación del juego se encontró con la dificultad de la creación de cada pokemon individual (hecho con objetos de python) pero en el proceso se descrubrió una manera de usar las bases de datos ya existentes para poder ampliar el catálogo de pokemones y ataques. Se espera que en un futuro se implementen dichos cambios.
 Del mismo modo se especúla una mejora en la dificultad de la computadora la cual hasta el momento elegía los ataques al azar, aumentando así el nivel de dificultad. 
