@@ -1,6 +1,6 @@
 <img src="https://bit.ly/2VnXWr2" alt="Ironhack Logo" width="100"/>
 
-*Read this in other languages: [Spanish](README.sp.md).*
+*Read this in other language: [Spanish](README.sp.md).*
 
 # Pokemon Battle Simulator!
 
